@@ -11,6 +11,9 @@ jobs:
         uses: actions/checkout@v2
       - name: 'Run Reliably Scan'
         uses: reliablyhq/actions/scan@v1
+        env:
+          RELIABLY_TOKEN: 494b04893560c74313eb797e69c8ff1ddc6cd40f
+          RELIABLY_ORG: CharlieMoon37
         continue-on-error: true
         with:
           format: "sarif"
