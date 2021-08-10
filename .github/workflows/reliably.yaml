@@ -12,8 +12,8 @@ jobs:
       - name: 'Run Reliably Scan'
         uses: reliablyhq/actions/scan@v1
         env:
-          RELIABLY_TOKEN: 494b04893560c74313eb797e69c8ff1ddc6cd40f
-          RELIABLY_ORG: CharlieMoon37
+          RELIABLY_TOKEN: ${{ secrets.RELIABLY_TOKEN }}
+          RELIABLY_ORG: ${{ secrets.RELIABLY_ORG }}
         continue-on-error: true
         with:
           format: "sarif"
