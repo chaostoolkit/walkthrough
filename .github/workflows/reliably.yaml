@@ -14,7 +14,6 @@ jobs:
         env:
           RELIABLY_TOKEN: ${{ secrets.RELIABLY_TOKEN }}
           RELIABLY_ORG: ${{ secrets.RELIABLY_ORG }}
-        continue-on-error: true
         with:
           format: "sarif"
           output: "reliably.sarif"
