@@ -14,7 +14,7 @@ In addition, on the client side, you need Python 3.5 or above.
 
 ### Minikube
 
-Minikube can be installed by following the installation step on the [Minikube Start](https://minikube.sigs.k8s.io/docs/start/) docs. The cluster can then be initiated and run using a docker driver:
+Minikube can be installed by following the installation steps on the [Minikube Start](https://minikube.sigs.k8s.io/docs/start/) docs. The cluster can then be initiated and run using the docker driver:
 
 ```console
 $ minikube start --driver docker --kubernetes-version v1.19.1
