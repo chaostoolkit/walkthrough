@@ -1,16 +1,81 @@
 # Environment Overview
 
-The labs run against a Kubernetes cluster, any recent version (1.16+)
-should do.
+The labs run against a Kubernetes cluster, supported by the `kubectl` package.
 
 Locally, for instance, you can use:
 
-* minikube
-* microk8s
+* `minikube`
+* `microk8s`
 
 In addition, on the client side, you need Python 3.5 or above.
 
 ## Installation of a local Kubernetes
+
+### Kubectl
+
+For both `minikube` and `microk8s`, `kubectl` is required. Even if you have `kubectl` installed, for the purpose of this demonstration, a specific version (v1.19.1) is required so following the installation steps is necessary to replace the current version. You can check the current version, if installed, using:
+
+```console
+$ kubectl version --client
+```
+
+#### Linux
+
+You can install Kubectl v1.19.1 using:
+
+```console
+$ curl -LO https://dl.k8s.io/release/v1.19.1/bin/linux/amd64/kubectl
+```
+
+```console
+$ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
+For further instructions, and for information about downloading the latest `kubectl` version for Linux after completing the demonstration, consult the [Kubernetes Installation Documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+
+#### Mac OS
+
+You can install Kubectl v1.19.1 for Intel macOS using:
+
+```console
+$ curl -LO "https://dl.k8s.io/release/v1.19.1/bin/darwin/amd64/kubectl"
+```
+
+And for Apple Silicon macOS using:
+
+```console
+$ curl -LO "https://dl.k8s.io/release/v1.19.1/bin/darwin/arm64/kubectl"
+```
+
+Once installed, the `kubectl` binary needs to be made executable and its path rooted:
+
+```console
+$ chmod +x ./kubectl
+```
+
+```console
+$ sudo mv ./kubectl /usr/local/bin/kubectl
+```
+
+```console
+$ sudo chown root: /usr/local/bin/kubectl
+```
+
+For further instructions, and for information about downloading the latest `kubectl` version for Mac OS after completing the demonstration, consult the [Kubernetes Installation Documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/)
+
+#### Windows
+
+You can install Kubectl v1.19.1 by running the Command Prompt as Administrator and using:
+
+```console
+curl -LO https://dl.k8s.io/release/v1.19.1/bin/windows/amd64/kubectl.exe
+```
+
+```console
+move kubectl.exe C:\Windows\System32
+```
+
+For further instructions, and for information about downloading the latest `kubectl` version for Windows after completing the demonstration, consult the [Kubernetes Installation Documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
 
 ### Minikube
 
@@ -52,7 +117,7 @@ We recommend following the first three installation steps on the [Microk8s](http
 
 After installing Microk8s, you will need to install a couple of add-ons for the Kubernetes cluster
 
-```
+```console
 $ microk8s.enable dns rbac
 ```
 
@@ -86,6 +151,7 @@ $ microk8s.enable prometheus
 ```
 
 ### Prometheus Services
+
 Once installed, you can view the services running
 
 ```console
