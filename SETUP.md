@@ -68,11 +68,11 @@ For further instructions, and for information about downloading the latest `kube
 You can install Kubectl v1.19.1 by running the Command Prompt as Administrator and using:
 
 ```console
-curl -LO https://dl.k8s.io/release/v1.19.1/bin/windows/amd64/kubectl.exe
+$ curl -LO https://dl.k8s.io/release/v1.19.1/bin/windows/amd64/kubectl.exe
 ```
 
 ```console
-move kubectl.exe C:\Windows\System32
+$ move kubectl.exe C:\Windows\System32
 ```
 
 For further instructions, and for information about downloading the latest `kubectl` version for Windows after completing the demonstration, consult the [Kubernetes Installation Documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
