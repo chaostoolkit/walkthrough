@@ -1,5 +1,19 @@
 # Environment Overview
 
+## Cloning Walkthrough Repository
+
+Before we get started setting up the environment, we first need to clone this repository locally for access to the required files
+
+```console
+$ git clone https://github.com/chaostoolkit/walkthrough.git
+```
+
+```console
+$ cd walkthrough
+```
+
+## Installation of a local Kubernetes
+
 The labs run against a Kubernetes cluster, supported by the `kubectl` package.
 
 Locally, for instance, you can use:
@@ -8,8 +22,6 @@ Locally, for instance, you can use:
 * `microk8s`
 
 In addition, on the client side, you need Python 3.5 or above.
-
-## Installation of a local Kubernetes
 
 ### Kubectl
 
@@ -118,7 +130,7 @@ We recommend following the first three installation steps on the [Microk8s](http
 After installing Microk8s, you will need to install a couple of add-ons for the Kubernetes cluster
 
 ```console
-$ microk8s.enable dns rbac
+$ microk8s enable dns rbac
 ```
 
 Please review the [microk8s documentation](https://microk8s.io/docs)
@@ -153,7 +165,7 @@ $ kubectl apply -f kube-prometheus/manifests/
 #### Microk8s
 
 ```console
-$ microk8s.enable prometheus
+$ microk8s enable prometheus
 ```
 
 ### Prometheus Services
