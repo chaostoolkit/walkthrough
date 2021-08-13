@@ -130,7 +130,7 @@ We recommend following the first three installation steps on the [Microk8s](http
 After installing Microk8s, you will need to install a couple of add-ons for the Kubernetes cluster
 
 ```console
-$ microk8s.enable dns rbac
+$ microk8s enable dns rbac
 ```
 
 Please review the [microk8s documentation](https://microk8s.io/docs)
