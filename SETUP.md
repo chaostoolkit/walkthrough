@@ -158,7 +158,7 @@ Once installed, you can view the services running
 $ kubectl -n monitoring get all
 ```
 
-### Chaos Mesh
+## Chaos Mesh
 
 Chaos Mesh is a powerful fault injection tool for Kubernetes which can create
 turbulences on physical and OS resources.
@@ -181,7 +181,7 @@ You can access its dashboard as follows:
 $ kubectl -n chaos-testing port-forward --address 0.0.0.0 service/chaos-dashboard 2333:2333
 ```
 
-### Traefik
+## Traefik
 
 We use traefik as an ingress provider to service our application.
 
@@ -189,7 +189,7 @@ We use traefik as an ingress provider to service our application.
 $ kubectl apply -f manifests/traefik.yaml
 ```
 
-### Installation of the Chaos Toolkit and its dependencies
+## Installation of the Chaos Toolkit and its dependencies
 
 The [Chaos Toolkit](https://chaostoolkit.org/) is the Chaos Engineering
 automation framework from Reliably. It is an open source project written in
@@ -226,24 +226,109 @@ Finally, we install a plugin to generate reports of experiment runs:
 $ pip install chaostoolkit-reporting
 ```
 
-### Installation of experiments dependencies
+## Installation of experiments dependencies
 
 The following labs are going to rely on a variety of tools.
 
-#### Vegeta
+### Vegeta
 
 [Vegeta](https://github.com/tsenart/vegeta) is a standalone binary that can
 induce load onto a web application. We often use it for simple load during an
-experiment, to understand how the traffic is impacted by an experiment.
+experiment to understand how the traffic is impacted by an experiment.
+
+#### Linux
+
+You will first need to install `wget` using:
 
 ```console
-$ wget https://github.com/tsenart/vegeta/releases/download/v12.8.4/vegeta_12.8.4_linux_386.tar.gz
-$ tar -zxf vegeta_12.8.4_linux_386.tar.gz
-$ sudo cp ./vegeta /usr/local/bin/
+$ apt-get install wget
+```
+
+You can then install Vegeta v12.8.3 for Linux AMD64 using:
+
+```console
+$ wget https://github.com/tsenart/vegeta/releases/download/v12.8.3/vegeta-12.8.3-linux-amd64.tar.gz
+```
+
+```console
+$ tar -zxf vegeta-12.8.3-linux-amd64.tar.gz
+```
+
+Or for Linux ARM64 using:
+
+```console
+$ wget https://github.com/tsenart/vegeta/releases/download/v12.8.3/vegeta-12.8.3-linux-arm64.tar.gz
+```
+
+```console
+$ tar -zxf vegeta-12.8.3-linux-arm64.tar.gz
+```
+
+Once installed, the `vegeta` binary needs to be moved and rooted
+
+```console
+$ sudo mv ./vegeta /usr/local/bin/
+```
+
+```console
 $ sudo chmod +x /usr/local/bin/vegeta
 ```
 
-### Installation of the applications
+#### MacOS
+
+For macOS, you can install Vegeta via the Homebrew package manager:
+
+```console
+brew install vegeta
+```
+
+#### Windows
+
+You will first need to install `wget` by running the Command Prompt as Administrator and using:
+
+```console
+$ curl -LO https://eternallybored.org/misc/wget/1.21.1/64.wget.exe
+```
+
+```console
+$ move wget.exe C:\Windows\System32
+```
+
+You will also need to install `unzip` by running the Command Prompt as Administrator and using:
+
+```console
+$ curl -LO www.stahlworks.com/dev/unzip.exe
+```
+
+```console
+$ move unzip.exe C:\Windows\System32
+```
+
+You can then install Vegeta v12.8.3 into a temporary directory by running the Command Prompt as Administrator and using:
+
+```console
+$ mkdir vegeta && cd vegeta
+```
+
+```console
+$ wget https://github.com/tsenart/vegeta/releases/download/v12.8.3/vegeta-12.8.3-windows-amd64.zip
+```
+
+```console
+$ unzip vegeta-12.8.3-windows-amd64.zip
+```
+
+```console
+$ move vegeta.exe C:\Windows\System32
+```
+
+The temporary directory can then be deleted which will ask for a confirmation:
+
+```console
+$ cd .. && rmdir /s vegeta
+```
+
+## Installation of the applications
 
 You can now install the application services:
 
