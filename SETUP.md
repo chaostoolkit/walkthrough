@@ -165,7 +165,7 @@ $ kubectl apply -f kube-prometheus/manifests/
 #### Microk8s
 
 ```console
-$ microk8s.enable prometheus
+$ microk8s enable prometheus
 ```
 
 ### Prometheus Services
