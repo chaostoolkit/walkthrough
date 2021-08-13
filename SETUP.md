@@ -140,7 +140,13 @@ We use the [Prometheus operator](https://github.com/prometheus-operator/promethe
 
 ```console
 $ git clone https://github.com/prometheus-operator/kube-prometheus
+```
+
+```console
 $ kubectl apply -f kube-prometheus/manifests/setup/
+```
+
+```console
 $ kubectl apply -f kube-prometheus/manifests/
 ```
 
@@ -175,11 +181,13 @@ See all its services running:
 $ kubectl -n chaos-testing get all
 ```
 
-You can access its dashboard as follows:
+You can setup the dashboard as follows:
 
 ```console
 $ kubectl -n chaos-testing port-forward --address 0.0.0.0 service/chaos-dashboard 2333:2333
 ```
+
+And access it by going to <http://localhost:2333/>
 
 ## Traefik
 
@@ -210,8 +218,7 @@ In itself, Chaos Toolkit does not have any capabilities to operate systems. You
 need to installation that target these systems.
 
 ```console
-$ pip install chaostoolkit-kubernetes chaostoolkit-prometheus \
-    chaostoolkit-addons jsonpath2
+$ pip install chaostoolkit-kubernetes chaostoolkit-prometheus chaostoolkit-addons jsonpath2
 ```
 
 You can verify they are now available by running:
@@ -226,9 +233,7 @@ Finally, we install a plugin to generate reports of experiment runs:
 $ pip install chaostoolkit-reporting
 ```
 
-## Installation of experiments dependencies
-
-The following labs are going to rely on a variety of tools.
+## Installation of experiment dependencies
 
 ### Vegeta
 
@@ -279,7 +284,7 @@ $ sudo chmod +x /usr/local/bin/vegeta
 For macOS, you can install Vegeta via the Homebrew package manager:
 
 ```console
-brew install vegeta
+$ brew install vegeta
 ```
 
 #### Windows
