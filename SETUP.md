@@ -10,18 +10,19 @@ $ git clone https://github.com/chaostoolkit/walkthrough.git
 
 ## Installation of a local Kubernetes
 
-The labs run against a Kubernetes cluster, supported by the `kubectl` package.
+The labs run against a Kubernetes cluster, supported by the `kubectl` package. For this demonstration, we will be using `minikube` supported by `docker` to run our cluster. In addition to these, you also need [Python 3.5][pylink] or above on the client side
 
-Locally, for instance, you can use:
+[pylink]: (https://www.python.org/downloads/)
 
-* `minikube`
-* `microk8s`
+### Minikube
 
-In addition, on the client side, you need Python 3.5 or above.
+Minikube can be installed by following the installation steps on the [Minikube Start](https://minikube.sigs.k8s.io/docs/start/) docs. The `minikube` cluster requires a docker driver to be initiated and hence docker must be installed. You can install `docker` from the [Docker Hub](https://hub.docker.com/search?q=&type=edition&offering=community).
+
+Before the cluster can be initiated and run, we first need to install `kubectl`
 
 ### Kubectl
 
-For both `minikube` and `microk8s`, `kubectl` is required. Even if you have `kubectl` installed, for the purpose of this demonstration, a specific version (v1.19.1) is required so following the installation steps is necessary to replace the current version. You can check the current version, if installed, using:
+Even if you have `kubectl` installed, for the purpose of this demonstration a specific version (v1.19.1) is required so following the installation steps is necessary to replace the current version. You can check the current version, if installed, using:
 
 ```console
 $ kubectl version --client
@@ -85,60 +86,13 @@ $ move kubectl.exe C:\Windows\System32
 
 For further instructions, and for information about downloading the latest `kubectl` version for Windows after completing the demonstration, consult the [Kubernetes Installation Documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/)
 
-### Minikube
+## Initiate the Kubernetes cluster
 
-Minikube can be installed by following the installation steps on the [Minikube Start](https://minikube.sigs.k8s.io/docs/start/) docs. The `minikube` cluster requires a docker driver to be initiated and hence docker must be installed. You can install `docker` from the [Docker Hub](https://hub.docker.com/search?q=&type=edition&offering=community). The cluster can then be initiated and run
+Now that `minikube`, `docker` and `kubectl` are installed, we can start the cluster and begin to install its additional dependencies. Note we are running it in line with the `kubectl` version (v1.19.1) to ensure compatibility between the server and client
 
 ```console
 $ minikube start --driver docker --kubernetes-version v1.19.1
 ```
-
-### Microk8s
-
-#### Linux
-
-```console
-$ sudo snap install microk8s --classic --channel=1.19
-```
-
-#### MacOS
-
-```console
-$ brew install ubuntu/microk8s/microk8s
-```
-
-```console
-$ microk8s install --channel=1.19
-```
-
-You will then receive the following which you also need to set up:
-
-```console
-Support for 'multipass' needs to be set up. Would you like to do that it now? [y/N]:
-```
-
-#### Windows
-
-We recommend following the first three installation steps on the [Microk8s](https://microk8s.io/docs/install-alternatives#heading--windows) Alternative Installation page and setting the Snap Track to "1.19/stable"
-
-#### Start Microk8s
-
-Now you have `microk8s` installed, you can start your cluster using:
-
-```console
-$ microk8s start
-```
-
-#### Add-Ons
-
-After installing and initiating the `microk8s` cluster, you will need to install a couple of add-ons
-
-```console
-$ microk8s enable dns rbac
-```
-
-Please review the [microk8s documentation](https://microk8s.io/docs)
-for further information.
 
 ## Installation of Kubernetes dependencies
 
@@ -148,11 +102,9 @@ We use the [Prometheus operator](https://github.com/prometheus-operator/promethe
 
 * Prometheus
 * Grafana
-* alert manager
+* Alert Manager
 
-### Prometheus Installation
-
-#### Minikube
+You can install `prometheus` and apply its configuration changes using:
 
 ```console
 $ git clone https://github.com/prometheus-operator/kube-prometheus
@@ -166,21 +118,13 @@ $ kubectl apply -f kube-prometheus/manifests/setup/
 $ kubectl apply -f kube-prometheus/manifests/
 ```
 
-#### Microk8s
-
-```console
-$ microk8s enable prometheus
-```
-
-### Prometheus Services
-
 Once installed, you can view the services running
 
 ```console
 $ kubectl -n monitoring get all
 ```
 
-## Chaos Mesh
+### Chaos Mesh
 
 Chaos Mesh is a powerful fault injection tool for Kubernetes which can create
 turbulences on physical and OS resources.
@@ -205,19 +149,19 @@ $ kubectl -n chaos-testing port-forward --address 0.0.0.0 service/chaos-dashboar
 
 You can then access the dashboard by going to <http://localhost:2333/>
 
-## Traefik
+### Traefik
 
 We use traefik as an ingress provider to service our application.
 
 ```console
-$ kubectl apply -f manifests/traefik.yaml
+$ kubectl apply -f walkthrough/manifests/traefik.yaml
 ```
 
 ## Installation of the Chaos Toolkit and its dependencies
 
 The [Chaos Toolkit](https://chaostoolkit.org/) is the Chaos Engineering
 automation framework from Reliably. It is an open source project written in
-Python. Assuming you have a proper Python 3.5 available, you should be able to
+Python. Assuming you have a proper [Python 3.5][pylink] available, you should be able to
 install it as follows:
 
 ```console
