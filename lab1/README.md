@@ -1,17 +1,22 @@
 In this lab, we will run a simple Chaos Engineering experiment that looks
-at what could happen when the `middle` service is restarted. We are tring to
+at what could happen when the `middle` service is restarted. We are trying to
 understand the impact on the general flow of the application.
+
+Throughout these labs, we will be using `jq` to extract and display snippets of our experiments which you can install from the [jq download page](https://stedolan.github.io/jq/download/)
 
 A Chaos Toolkit experiment is made of several sections, all serving a purpose.
 Let's review the most important ones.
 
-The `steady-state hypothesis` declares the baseline of your system, or said
+The `steady-state hypothesis` declares the baseline of your system or said
 otherwise, when your system is healthy by some measure.
 
 Lets look at it:
 
 ```json
 $ jq '.["steady-state-hypothesis"]' lab1/experiment.json 
+```
+
+```json
 {
   "title": "n/a",
   "probes": [
@@ -33,7 +38,7 @@ $ jq '.["steady-state-hypothesis"]' lab1/experiment.json
         "module": "tolerances",
         "func": "should_not_have_any_errors",
         "arguments": {
-          "filepath": "experiments/data/middle_service_restarts.json"
+          "filepath": "lab1/vegeta_results.json"
         }
       }
     }
@@ -91,7 +96,10 @@ we introduced.
 The method, for this experiment, looks like this:
 
 ```json
-$ jq .method lab1/experiment.json 
+$ jq .method lab1/experiment.json
+```
+
+```json
 [
   {
     "type": "action",
@@ -100,7 +108,7 @@ $ jq .method lab1/experiment.json
     "provider": {
       "type": "process",
       "path": "vegeta",
-      "arguments": "attack -targets=experiments/data/middle_service_restarts.txt -workers=1 -rate=2 -timeout=3s -duration=40s -output=experiments/data/middle_service_restarts.bin"
+      "arguments": "attack -targets=lab1/vegeta.txt -workers=1 -rate=3 -timeout=2s -duration=40s -output=lab1/vegeta_results.bin"
     }
   },
   {
@@ -113,9 +121,9 @@ $ jq .method lab1/experiment.json
     "provider": {
       "type": "python",
       "module": "chaosk8s.pod.actions",
-      "func": "delete_pods",
+      "func": "terminate_pods",
       "arguments": {
-        "name": "middle"
+        "label_selector": "app=middle"
       }
     }
   },
@@ -125,7 +133,7 @@ $ jq .method lab1/experiment.json
     "provider": {
       "type": "process",
       "path": "vegeta",
-      "arguments": "encode --output experiments/data/middle_service_restarts.json --to json < experiments/data/middle_service_restarts.bin"
+      "arguments": "encode --output lab1/vegeta_results.json --to json < lab1/vegeta_results.bin"
     }
   },
   {
@@ -210,7 +218,7 @@ $ chaos run lab1/experiment.json
 
 Tada!
 
-We have run this experiment succesfully. Easy, right!
+We have run this experiment successfully. Easy, right!
 
 What exactly happened though? Well, the hypothesis block was applied once and
 it passed because the probes validated. This allowed the experiment to move
@@ -227,7 +235,7 @@ cover the calls.
 
 Let's see:
 
-```
+```console
 $ kubectl scale --replicas=2 deployment/middle
 ```
 
