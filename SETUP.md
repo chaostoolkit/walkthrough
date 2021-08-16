@@ -161,7 +161,7 @@ $ kubectl apply -f walkthrough/manifests/traefik.yaml
 
 The [Chaos Toolkit](https://chaostoolkit.org/) is the Chaos Engineering
 automation framework from Reliably. It is an open source project written in
-Python. Assuming you have a proper [Python 3.6][pylink] available, you should be able to
+Python. Assuming you have a proper [Python 3.6][pylink] or above installation available, you should be able to
 install it as follows:
 
 ```console
