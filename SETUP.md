@@ -8,10 +8,6 @@ Before we get started setting up the environment, we first need to clone this re
 $ git clone https://github.com/chaostoolkit/walkthrough.git
 ```
 
-```console
-$ cd walkthrough
-```
-
 ## Installation of a local Kubernetes
 
 The labs run against a Kubernetes cluster, supported by the `kubectl` package.
@@ -91,7 +87,7 @@ For further instructions, and for information about downloading the latest `kube
 
 ### Minikube
 
-Minikube can be installed by following the installation steps on the [Minikube Start](https://minikube.sigs.k8s.io/docs/start/) docs. The cluster can then be initiated and run using the docker driver:
+Minikube can be installed by following the installation steps on the [Minikube Start](https://minikube.sigs.k8s.io/docs/start/) docs. The `minikube` cluster requires a docker driver to be initiated and hence docker must be installed. You can install `docker` from the [Docker Hub](https://hub.docker.com/search?q=&type=edition&offering=community). The cluster can then be initiated and run
 
 ```console
 $ minikube start --driver docker --kubernetes-version v1.19.1
@@ -117,7 +113,7 @@ $ microk8s install --channel=1.19
 
 You will then receive the following which you also need to set up:
 
-```
+```console
 Support for 'multipass' needs to be set up. Would you like to do that it now? [y/N]:
 ```
 
@@ -125,9 +121,17 @@ Support for 'multipass' needs to be set up. Would you like to do that it now? [y
 
 We recommend following the first three installation steps on the [Microk8s](https://microk8s.io/docs/install-alternatives#heading--windows) Alternative Installation page and setting the Snap Track to "1.19/stable"
 
+#### Start Microk8s
+
+Now you have `microk8s` installed, you can start your cluster using:
+
+```console
+$ microk8s start
+```
+
 #### Add-Ons
 
-After installing Microk8s, you will need to install a couple of add-ons for the Kubernetes cluster
+After installing and initiating the `microk8s` cluster, you will need to install a couple of add-ons
 
 ```console
 $ microk8s enable dns rbac
@@ -181,7 +185,7 @@ $ kubectl -n monitoring get all
 Chaos Mesh is a powerful fault injection tool for Kubernetes which can create
 turbulences on physical and OS resources.
 
-It is used by the Chaos Toolkit in rich Chaos Engineering experiments.
+It is used by the Chaos Toolkit in rich Chaos Engineering experiments. To install and run Chaos Mesh, open a new terminal window and run:
 
 ```console
 $ curl -sSL https://mirrors.chaos-mesh.org/v1.0.2/install.sh | bash
@@ -193,13 +197,13 @@ See all its services running:
 $ kubectl -n chaos-testing get all
 ```
 
-You can setup the dashboard as follows:
+You can setup the dashboard in a new terminal window as follows:
 
 ```console
 $ kubectl -n chaos-testing port-forward --address 0.0.0.0 service/chaos-dashboard 2333:2333
 ```
 
-And access it by going to <http://localhost:2333/>
+You can then access the dashboard by going to <http://localhost:2333/>
 
 ## Traefik
 
@@ -350,5 +354,5 @@ $ cd .. && rmdir /s vegeta
 You can now install the application services:
 
 ```console
-$ kubectl apply -f manifests/all.yaml
+$ kubectl apply -f walkthrough/manifests/all.yaml
 ```
