@@ -10,7 +10,7 @@ $ git clone https://github.com/chaostoolkit/walkthrough.git
 
 ## Installation of a local Kubernetes
 
-The labs run against a Kubernetes cluster, supported by the `kubectl` package. For this demonstration, we will be using `minikube` supported by `docker` to run our cluster. In addition to these, you also need [Python 3.5][pylink] or above on the client side
+The labs run against a Kubernetes cluster, supported by the `kubectl` package. For this demonstration, we will be using `minikube` supported by `docker` to run our cluster. In addition to these, you also need [Python 3.6][pylink] or above on the client side
 
 [pylink]: (https://www.python.org/downloads/)
 
@@ -161,7 +161,7 @@ $ kubectl apply -f walkthrough/manifests/traefik.yaml
 
 The [Chaos Toolkit](https://chaostoolkit.org/) is the Chaos Engineering
 automation framework from Reliably. It is an open source project written in
-Python. Assuming you have a proper [Python 3.5][pylink] available, you should be able to
+Python. Assuming you have a proper [Python 3.6][pylink] available, you should be able to
 install it as follows:
 
 ```console
