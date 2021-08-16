@@ -1,5 +1,4 @@
 {
-  "version": "1.0.0",
   "title": "Losing the ability to talk to the internal services should be adjusted for",
   "description": "In case we lose connection to our internal services, our front service ought to degrade gracefully",
   "configuration": {

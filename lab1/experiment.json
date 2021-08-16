@@ -1,5 +1,4 @@
 {
-  "version": "1.0.0",
   "title": "Rolling out a new version of the middle service does not impact our users",
   "description": "n/a",
   "configuration": {

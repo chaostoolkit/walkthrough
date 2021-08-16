@@ -1,5 +1,4 @@
 {
-  "version": "1.0.0",
   "title": "We can tolerate a small latency from internal services",
   "description": "While we can tolerate a small latency between services, how far can we really delay before the user gets a poorer experience.",
   "configuration": {
