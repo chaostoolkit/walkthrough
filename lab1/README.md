@@ -2,7 +2,10 @@ In this lab, we will run a simple Chaos Engineering experiment that looks
 at what could happen when the `middle` service is restarted. We are trying to
 understand the impact on the general flow of the application.
 
-Throughout these labs, we will be using `jq` to extract and display snippets of our experiments which you can install from the [jq download page](https://stedolan.github.io/jq/download/)
+Throughout these labs, we will be using `jq` to extract and display snippets of
+our experiments which you can install from the [jq download page][jqinstall]
+
+[jqinstall]: https://stedolan.github.io/jq/download/
 
 A Chaos Toolkit experiment is made of several sections, all serving a purpose.
 Let's review the most important ones.
