@@ -2,17 +2,20 @@ In this lab, we are going to explore the impact of latency on the entire
 chain of services when one intermediate service gets slower.
 
 Let's remember that the `front` service communicates with the `middle`
-service and expects a connection and response unde 1 second each. Likewise,
+service and expects a connection and response in under a second from each. Likewise,
 the `middle` service speaks to the `back` service with the same expectations.
-This means that, a latency may be timing out any of these two services.
+This means that latency may be timing out any of these two services.
 
-The `steady-state hypothesis` declares the baseline of your system, or said
+The `steady-state hypothesis` declares the baseline of your system or said
 otherwise, when your system is healthy by some measure.
 
 Lets look at it:
 
 ```json
-$ jq '.["steady-state-hypothesis"]' lab2/experiment.json 
+$ jq '.["steady-state-hypothesis"]' lab2/experiment.json
+```
+
+```json
 {
   "title": "n/a",
   "probes": [
@@ -61,10 +64,13 @@ already. If the hypothesis block was negative after the `method`, then the
 experiment showed a deviation of our system, likely due to the condition
 we introduced.
 
-The method, for this experiment, looks like this:
+The `method`, for this experiment, looks like this:
 
 ```json
  $ jq .method lab2/experiment.json 
+ ```
+
+ ```json
 [
   {
     "type": "action",
@@ -147,7 +153,7 @@ The method, for this experiment, looks like this:
 ]
 ```
 
-The action is a sequence of interleaved actions and probes. Actions are
+The `method` is a sequence of interleaved actions and probes. Actions are
 operations against the system whereas probes are merely used to collect data as
 we run the experiment for analysis later on.
 
@@ -166,7 +172,7 @@ an error.
 
 It's important to understand that the actions/probes are sequential. With the
 exception of actions/probes that are marked to run in the background. This is
-the case of the load test action, it needs to run during the entire method or
+the case of the load test action, it needs to run during the entire `method` or
 it won't be very valuable.
 
 We are now ready to run it:
@@ -199,7 +205,7 @@ $ chaos run --rollback-strategy=always lab2/experiment.json
 
 Tada!
 
-We have run this experiment succesfully. Easy, right!
+We have run this experiment successfully. Easy, right!
 
 Notice how we force Chaos Toolkit to run our rollbacks because we need to
 remove the latency injection no matter the result of the experiment. Indeed,
@@ -231,7 +237,7 @@ $ jq .rollbacks lab2/experiment.json
 
 What exactly happened though? Well, the hypothesis block was applied once and
 it passed because the probes validated. This allowed the experiment to move
-to its method and run it as well. Finally, the hypothesis block was executed
+to its `method` and run it as well. Finally, the hypothesis block was executed
 again and, this time, didn't pass because one of the probes didn't validate
 its tolerance. This triggered a deviation status indicating that, under the
 given conditions, the system might not be reliable.
