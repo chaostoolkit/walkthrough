@@ -7,7 +7,7 @@ during some critical situations of your system. For instance, your system
 is under a real attack, you probably want to interrupt all the experiments
 as soon as possible so that your teams can focus on the real issue at hand.
 
-To achoeve that, we are foing to rely on a Chaos Toolkit feature called
+To achieve that, we are foing to rely on a Chaos Toolkit feature called
 `controls`. A control is merely a piece of code that runs during the execution
 of the experiment and can do anything to it: interrupting it, changing it on
 the fly, logging it, etc. You can learn more about `controls` on the
