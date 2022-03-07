@@ -13,8 +13,9 @@ def alert_is_not_firing(alert_name: str, configuration: Configuration) -> bool:
     if r.status_code > 399:
         raise ActivityFailed("Prometheus alert failed: {m}".format(m=r.text))
     alerts = r.json()
-    for alert in alerts.get("data", []):
-        if alert["labels"]["name"] == alert_name:
+    alerts = alerts.get("data", {"alerts": []}).get("alerts", [])
+    for alert in alerts:
+        if alert["labels"]["alertname"] == alert_name:
             if alert["state"] == "firing":
                 return False
     return True
