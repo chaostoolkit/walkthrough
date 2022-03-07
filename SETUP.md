@@ -126,6 +126,16 @@ We use the [Prometheus operator](https://github.com/prometheus-operator/promethe
 * Grafana
 * Alert Manager
 
+You can install Prometheus in various ways, see below for three of them.
+
+### Using the Prometheus Operator via Helm
+
+```
+$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+$ helm repo update
+$ helm upgrade --install prometheus prometheus-community/kube-prometheus-stack
+```
+
 ### Minikube Installation - Linux/MacOS/Windows
 
 ```console
