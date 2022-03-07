@@ -59,17 +59,29 @@ import requests
 __all__ = ["alert_is_not_firing"]
 
 
-def alert_is_not_firing(alert_name: str, configuration: Configuration) -> bool:
+def alert_is_not_firing(alert_name: str, container_name: str,
+                        configuration: Configuration) -> bool:
+    """
+    Lookup for a specific alert on a given container and see if its status
+    is either `pending` or `firing`. If either, it returns `False` so that
+    the tolerance will fail.
+    """
     base = (configuration or {}).get(
         "prometheus_base_url", "http://localhost:9090")
     url = "{base}/api/v1/alerts".format(base=base)
+
     r = requests.get(url, headers={"Accept": "application/json"})
     if r.status_code > 399:
         raise ActivityFailed("Prometheus alert failed: {m}".format(m=r.text))
+
     alerts = r.json()
-    for alert in alerts.get("data", []):
-        if alert["labels"]["name"] == alert_name:
-            if alert["state"] == "firing":
+    alerts = alerts.get("data", {"alerts": []}).get("alerts", [])
+
+    for alert in alerts:
+        labels = alert["labels"]
+        if labels["alertname"] == alert_name and \
+            labels["container"] == container_name and \
+            alert["state"] in ("pending", "firing"):
                 return False
     return True
 ```
@@ -109,7 +121,7 @@ $ kubectl apply -f manifests/failingapp.yaml
 We are now ready to run our experiment.
 
 ```console
-$ chaos run --rollback-strategy=always lab5/experiment.json 
+$ chaos run lab5/experiment.json 
 [2020-12-07 15:38:31 INFO] Validating the experiment's syntax
 [2020-12-07 15:38:32 INFO] Experiment looks valid
 [2020-12-07 15:38:32 INFO] Running experiment: Losing the ability to talk to the internal services should be adjusted for

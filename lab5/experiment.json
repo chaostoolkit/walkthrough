@@ -29,7 +29,8 @@
                             "module": "probes",
                             "func": "alert_is_not_firing",
                             "arguments": {
-                                "alert_name": "KubePodCrashLooping"
+                                "alert_name": "KubePodCrashLooping",
+                                "container_name": "front"
                             }
                         },
                         "frequency": 30,
@@ -90,25 +91,7 @@
       "provider": {
         "type": "process",
         "path": "vegeta",
-        "arguments": "attack -targets=lab4/vegeta.txt -workers=2 -rate=10 -timeout=3s -duration=10s -output=lab4/vegeta.bin"
-      }
-    },
-    {
-      "type": "action",
-      "name": "deny-all-ingress-traffic",
-      "pauses": {
-        "before": 5,
-        "after": 5
-      },
-      "provider": {
-        "type": "python",
-        "module": "chaosk8s.networking.actions",
-        "func": "deny_all_ingress",
-        "arguments": {
-          "label_selectors": {
-            "app": "back"
-          }
-        }
+        "arguments": "attack -targets=lab5/vegeta.txt -workers=2 -rate=10 -timeout=3s -duration=10s -output=lab5/vegeta.bin"
       }
     },
     {
@@ -117,7 +100,7 @@
       "provider": {
         "type": "process",
         "path": "vegeta",
-        "arguments": "plot lab4/vegeta.bin > lab4/vegeta.html"
+        "arguments": "plot lab5/vegeta.bin > lab5/vegeta.html"
       }
     },
     {
@@ -132,17 +115,6 @@
           "container_name": "front",
           "last": "10s"
         }
-      }
-    }
-  ],
-  "rollbacks": [
-    {
-      "type": "action",
-      "name": "remove-deny-all-ingress-traffic",
-      "provider": {
-        "type": "python",
-        "module": "chaosk8s.networking.actions",
-        "func": "remove_deny_all_ingress"
       }
     }
   ]
