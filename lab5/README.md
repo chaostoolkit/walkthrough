@@ -15,7 +15,7 @@ Chaos Toolkit [documentation](https://docs.chaostoolkit.org/reference/extending/
 
 Lets look at the controls block of the experiment now:
 
-```json
+```bash
 $ jq .controls lab5/experiment.json 
 [
   {
@@ -81,7 +81,7 @@ understands the experiment then must be interrupted as soon as possible.
 The probe needs the address of the prometheus endpoint to query
 it. This is provided through the configuration `prometheus_base_url`:
 
-```json
+```bash
 $ jq .configuration lab4/experiment.json 
 {
   "prometheus_base_url": {
@@ -102,7 +102,7 @@ For the purpose of this lab, we have a specific application that is meant to
 fail its startup so it leads quickly to CrashLoopBackoff error
 from Kubernetes that is caught as an alert by Prometheus.
 
-```console
+```bash
 $ kubectl apply -f manifests/failingapp.yaml
 ```
 
